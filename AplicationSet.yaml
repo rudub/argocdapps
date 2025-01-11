@@ -18,7 +18,7 @@ spec:
       source:
         repoURL: https://github.com/rudub/helmcharts
         path: "{{metadata.name}}"  # Path to the service Helm chart
-        targetRevision: main
+        targetRevision: develop
         helm:
           valueFiles:
             - "{{path}}"  # References the environment-specific values file
