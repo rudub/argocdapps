@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: app-environment-generator
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/rudub/argocdapps
+        revision: main
+        directories:
+          - path: apps/*.yaml  # Matches all environment values files
+  template:
+    metadata:
+      name: "{{path.basename}}" # Generates application name dynamically
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/rudub/helmcharts
+        path: "{{metadata.name}}"  # Path to the service Helm chart
+        targetRevision: main
+        helm:
+          valueFiles:
+            - "{{path}}"  # References the environment-specific values file
+      destination:
+        server: https://arog-apps-dns-huw7sc5h.hcp.centralindia.azmk8s.io
+        namespace: "{{path.basename}}-namespace"
