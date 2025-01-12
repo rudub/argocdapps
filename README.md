@@ -1,2 +1,2 @@
 # argocdapps
-Test
+
