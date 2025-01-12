@@ -25,3 +25,4 @@ spec:
       destination:
         server: https://arog-apps-dns-huw7sc5h.hcp.centralindia.azmk8s.io
         namespace: "{{path.basename}}-namespace"
+        
